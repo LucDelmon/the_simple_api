@@ -1,0 +1,82 @@
+name: CI
+on: [push]
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Try build
+        run: bin/rails runner "print 'ok'"
+  tests:
+    name: tests
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_HOST: localhost
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup test database
+        env:
+          RAILS_ENV: test
+        run: bin/rails db:setup
+
+      - name: Run tests
+        run: bundle exec rspec
+
+      - name: Simplecov Report
+        uses: aki77/simplecov-report-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          failedThreshold: 100
+      - name: Upload Code Coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage
+          path: coverage/
+
+  static_analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Linter
+        #run: gem install rubocop rubocop-rspec rubocop-rails && rubocop
+        run: bundle exec rubocop
+      - name: Security Checks
+        run: |
+          bundle exec brakeman -z
+          gem install bundle-audit
+          bundle-audit update
+          bundle-audit
