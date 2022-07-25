@@ -24,4 +24,4 @@ After cloning
 - A CI is performing static analysis with rubocop, brakeman and bundle-audit.
 - Commits follow the [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) standard.
 - Branch management is done with [git flow](https://levelup.gitconnected.com/introduction-to-git-flow-3ad331d097fa
-  )
+  ) (don't forget to git push origin --tags)
