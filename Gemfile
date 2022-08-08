@@ -19,6 +19,12 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   gem 'brakeman'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'capistrano', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-passenger', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-secrets-yml', require: false
   gem 'database_cleaner-active_record'
   gem 'rspec-rails'
   gem 'rubocop'
