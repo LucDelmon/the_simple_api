@@ -25,3 +25,6 @@
 
 # Codecov
 coverage
+
+# Capistrano
+config/secrets.yml
