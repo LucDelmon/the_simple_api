@@ -71,4 +71,5 @@ production:
   <<: *default
   database: the_simple_api_production
   username: the_simple_api
-  password: <%= ENV['THE_SIMPLE_API_DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.secrets[:database_password] %>
+  host: localhost
