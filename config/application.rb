@@ -27,5 +27,12 @@ module TheSimpleApi
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
     config.api_only = true
+
+    config.session_store :cookie_store, key: '_interslice_session'
+
+    # Required for all session management (regardless of session_store)
+    config.middleware.use ActionDispatch::Cookies
+
+    config.middleware.use config.session_store, config.session_options
   end
 end
