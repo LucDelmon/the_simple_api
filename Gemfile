@@ -13,6 +13,9 @@ gem 'puma', '~> 5.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 
+# Worker
+gem 'sidekiq', '~> 6.5'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
@@ -40,5 +43,6 @@ group :development do
 end
 
 group :test do
+  gem 'rspec-sidekiq'
   gem 'simplecov', require: false
 end

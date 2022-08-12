@@ -24,6 +24,8 @@ class AuthorsController < ApplicationController
     @author = Author.new(author_params)
 
     if @author.save
+      EmailAuthorJob.perform_async(@author.name)
+
       render json: @author, status: :created, location: @author
     else
       render json: @author.errors, status: :unprocessable_entity

@@ -22,6 +22,11 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  config.before do
+    Sidekiq::Worker.clear_all
+  end
+
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = '.rspec_status'
 

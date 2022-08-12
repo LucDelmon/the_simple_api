@@ -17,3 +17,8 @@ end
 RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
 end
+
+RSpec::Sidekiq.configure do |config|
+  # Warn when jobs are not enqueued to Redis but to a job array
+  config.warn_when_jobs_not_processed_by_sidekiq = false
+end

@@ -16,6 +16,7 @@ The project is intended to be used as a reference for other projects and as a st
 ## Requirements
 - Ruby version 3.0.0
 - PostgresSQL with no password required in localhost (see external_files folder for an example of how to setup this)
+- Redis installed locally
 
 ## Make it work
 After cloning
@@ -51,6 +52,7 @@ After cloning
   - the_simple_api_maintenance.conf to place in `/etc/nginx/sites-available/`. Templates are in external_files folders.
 
 - Passenger is [installed](https://www.phusionpassenger.com/docs/advanced_guides/install_and_upgrade/nginx/install/oss/focal.html)
+- Redis is [installed](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
 
 ## Make it work
 - `export production_server_ip="120.120.120.120"`

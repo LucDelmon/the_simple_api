@@ -54,6 +54,11 @@ RSpec.describe '/authors', type: :request do
         expect { request }.to change(Author, :count).by(1)
       end
 
+      it 'enqueues a job to send an email to the author' do
+        request
+        expect(EmailAuthorJob).to have_enqueued_sidekiq_job('Fred')
+      end
+
       it 'renders a JSON response with the new Author' do
         request
         expect(response).to have_http_status(:created)
