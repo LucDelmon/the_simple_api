@@ -86,6 +86,10 @@ GEM
     capistrano-secrets-yml (1.2.1)
       capistrano (>= 3.10)
       sshkit (>= 1.17.0)
+    capistrano-sidekiq (2.3.0)
+      capistrano (>= 3.9.0)
+      capistrano-bundler
+      sidekiq (>= 6.0)
     concurrent-ruby (1.1.10)
     connection_pool (2.2.5)
     crass (1.0.6)
@@ -249,6 +253,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capistrano-secrets-yml
+  capistrano-sidekiq
   database_cleaner-active_record
   listen (~> 3.3)
   pg (~> 1.1)

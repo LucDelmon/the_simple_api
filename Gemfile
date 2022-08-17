@@ -28,6 +28,7 @@ group :development, :test do
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-secrets-yml', require: false
+  gem 'capistrano-sidekiq', require: false
   gem 'database_cleaner-active_record'
   gem 'rspec-rails'
   gem 'rubocop'

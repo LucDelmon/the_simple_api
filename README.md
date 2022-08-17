@@ -57,4 +57,5 @@ After cloning
 ## Make it work
 - `export production_server_ip="120.120.120.120"`
 - `cap production setup` (to copy the secrets.yml file)
+- `cap production sidekiq:install` (install sidekiq service on server)
 - `cap production deploy` (to deploy master)
