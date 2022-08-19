@@ -1,4 +1,19 @@
 # the simple api
+
+[![GitHub tag](https://img.shields.io/github/tag/LucDelmon/the_simple_api.svg)](https://GitHub.com/LucDelmon/the_simple_api/tags/)
+[![GitHub commits](https://badgen.net/github/commits/LucDelmon/the_simple_api)](https://GitHub.com/Naereen/LucDelmon/the_simple_api/commit/)
+[![GitHub latest commit](https://badgen.net/github/last-commit/LucDelmon/the_simple_api)](https://GitHub.com/LucDelmon/the_simple_api/commit/)
+[![https://ebookfoundation.github.io/free-programming-books/](https://img.shields.io/website?style=flat&logo=www&logoColor=whitesmoke&label=api&down_color=red&down_message=down&up_color=green&up_message=up&url=https%3A%2F%2Flucdelmon.com%2Fapi%2Fbooks)](https://lucdelmon.com/api/books).
+
+
+`master`
+
+
+[![master](https://github.com/LucDelmon/the_simple_api/actions/workflows/ci.yml/badge.svg)](https://github.com/LucDelmon/the_simple_api/actions?query=workflow%3Aci)
+
+`develop`
+
+[![develop](https://github.com/LucDelmon/the_simple_api/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/LucDelmon/the_simple_api/actions?query=workflow%3Aci)
 # Introduction
 The goal of this project is to create the simplest API possible and add on top of it the most complex and complete CI/CD pipeline while applying best practices and add everything that a serious project should have. 
 
