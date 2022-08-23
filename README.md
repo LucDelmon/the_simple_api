@@ -61,10 +61,12 @@ After cloning
 
 
 - A `ubuntu` user with write permissions on `/var/www/html` and a public ssh key from which you hold the private key locally.
-- A deploy key on the ubuntu user that allow pulling from the github repository.
-- Nginx. Two config files are necessary:
-  - the_simple_api.conf
-  - the_simple_api_maintenance.conf to place in `/etc/nginx/sites-available/`. Templates are in external_files folders.
+- A deploy key on the `ubuntu` user that allow pulling from the github repository.
+- Nginx is [installed](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/). Two config files are necessary:
+  - `the_simple_api.conf`
+  - `the_simple_api_maintenance.conf` 
+  
+  to place both in `/etc/nginx/sites-available/`. Templates are available in `external_files` folders.
 
 - Passenger is [installed](https://www.phusionpassenger.com/docs/advanced_guides/install_and_upgrade/nginx/install/oss/focal.html)
 - Redis is [installed](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
@@ -74,3 +76,78 @@ After cloning
 - `cap production setup` (to copy the secrets.yml file)
 - `cap production sidekiq:install` (install sidekiq service on server)
 - `cap production deploy` (to deploy master)
+
+# API
+## Requirements
+To use the API you need to use a JWT linked to a User. Which means you need to create a user first.
+
+On development you can use the variable env `DISABLE_AUTHENTICATION=true` when launching the server to disable all kind of authentication.
+
+On production I advice to use Postman.
+- First post to `/users`.
+
+  | form-data |                |
+  |-----------|----------------|
+  | email     | valid email    | 
+  | password  | valid password |
+- Then post to `/auth/login` with the email and password of the user you created (same payload).
+- And under the tests tab on Postman while making the POST add this script:
+  ```javascript
+  const response = pm.response.json();
+  pm.environment.set("jwt_token", response.token);
+  ```
+  (Be sure to have created a postman env)
+- Then for every other request you make, you can go to the Authorisation tab, choose type Bearer and write `{{jwt_token}}` in the token field
+
+## Endpoints
+### Users
+| verb   | Uri        | actions |
+|--------|------------|---------|
+| GET    | /users     | index   |
+| POST   | /users     | create  |
+| GET    | /users/:id | show    |
+| PATCH  | /users/:id | update  |
+| PUT    | /users/:id | update  |
+| DELETE | /users/:id | destroy |
+
+#### Create/update
+```json
+{
+    "email": (string following URI::MailTo::EMAIL_REGEXP),
+    "password": (string of at least 6 characters)
+}
+```
+### Authors
+| verb   | Uri          | actions |
+|--------|--------------|---------|
+| GET    | /authors     | index   |
+| POST   | /authors     | create  |
+| GET    | /authors/:id | show    |
+| PATCH  | /authors/:id | update  |
+| PUT    | /authors/:id | update  |
+| DELETE | /authors/:id | destroy |
+
+#### Create/update
+```json
+{
+    "name": (string of at least 3 characters)
+}
+```
+### Books
+| verb   | Uri        | actions |
+|--------|------------|---------|
+| GET    | /books     | index   |
+| POST   | /books     | create  |
+| GET    | /books/:id | show    |
+| PATCH  | /books/:id | update  |
+| PUT    | /books/:id | update  |
+| DELETE | /books/:id | destroy |
+
+#### Create/update
+```json
+{
+    "title": (string),
+    "page_count": (strictly positive integer),
+    "author_id": (id of an existing author),
+}
+```

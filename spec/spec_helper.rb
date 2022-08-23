@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+require 'requests/shared_contexts_and_examples'
+
 SimpleCov.start 'rails' do
   add_filter 'app/channels/application_cable/channel.rb'
   add_filter 'app/channels/application_cable/connection.rb'
@@ -15,6 +17,15 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.include_context 'with an http request', type: :request
+
+  config.before(:each, :with_authenticated_headers, type: :request) do
+    @headers = {
+      'Authorization' => JsonWebToken.encode(user_id: User.create!(email: 'e@test.com', password: '123456').id),
+      'HTTP_ACCEPT' => 'application/json',
+    }
   end
 
   config.around do |example|

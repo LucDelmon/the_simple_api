@@ -19,6 +19,9 @@ gem 'sidekiq', '~> 6.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'bcrypt'
+gem 'jwt'
+
 group :development, :test do
   gem 'brakeman'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -46,4 +49,5 @@ end
 group :test do
   gem 'rspec-sidekiq'
   gem 'simplecov', require: false
+  gem 'timecop'
 end

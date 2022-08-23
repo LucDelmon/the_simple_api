@@ -63,6 +63,7 @@ GEM
     airbrussh (1.4.1)
       sshkit (>= 1.6.1, != 1.7.0)
     ast (2.4.2)
+    bcrypt (3.1.18)
     bootsnap (1.12.0)
       msgpack (~> 1.2)
     brakeman (5.2.3)
@@ -106,6 +107,7 @@ GEM
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     json (2.6.2)
+    jwt (2.4.1)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -232,6 +234,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     thor (1.2.1)
+    timecop (0.9.5)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.2.0)
@@ -244,6 +247,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt
   bootsnap (>= 1.4.4)
   brakeman
   byebug
@@ -255,6 +259,7 @@ DEPENDENCIES
   capistrano-secrets-yml
   capistrano-sidekiq
   database_cleaner-active_record
+  jwt
   listen (~> 3.3)
   pg (~> 1.1)
   puma (~> 5.0)
@@ -268,6 +273,7 @@ DEPENDENCIES
   sidekiq (~> 6.5)
   simplecov
   spring
+  timecop
 
 RUBY VERSION
    ruby 3.0.0p0
