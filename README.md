@@ -69,7 +69,7 @@ After cloning
   to place both in `/etc/nginx/sites-available/`. Templates are available in `external_files` folders.
 
 - Passenger is [installed](https://www.phusionpassenger.com/docs/advanced_guides/install_and_upgrade/nginx/install/oss/focal.html)
-- Redis is [installed](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
+- Redis is [installed](https://redis.io/docs/getting-started/installation/install-redis-on-linux/) + `sudo systemctl enable redis-server` + `sudo systemctl start redis-server`
 
 ## Make it work
 - `export production_server_ip="120.120.120.120"`
