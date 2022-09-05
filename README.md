@@ -53,10 +53,9 @@ After cloning
       secret_key_base: <secret_key_base>
     ```
     
-- Example of command for db since pgsql is a badly made as rvm: 
+- Example of command for db:
   - `sudo -u postgres psql` 
   - `create user the_simple_api with password 'password';`
-  - `alter role the_simple_api superuser createrole createdb replication;`
   - `create database the_simple_api_production owner the_simple_api;`
 
 
