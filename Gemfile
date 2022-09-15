@@ -47,6 +47,7 @@ group :development do
 end
 
 group :test do
+  gem 'rspec_junit_formatter'
   gem 'rspec-sidekiq'
   gem 'simplecov', require: false
   gem 'timecop'

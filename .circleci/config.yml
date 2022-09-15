@@ -1,0 +1,65 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.8.0
+
+executors:
+  ruby:
+    docker:
+      - image: cimg/ruby:3.0.0
+        environment:
+          RAILS_ENV: test
+  ruby_and_postgres:
+    docker:
+      - image: cimg/ruby:3.0.0
+        environment:
+          RAILS_ENV: test
+          DATABASE_HOST: localhost
+      - image: cimg/postgres:14.4
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+
+jobs:
+  build:
+    executor: ruby
+    steps:
+      - checkout
+      - ruby/install-deps:
+         key: gems-{{ checksum "Gemfile.lock" }}
+      - persist_to_workspace:
+          root: .
+          paths: .
+  tests:
+    parallelism: 4
+    executor: ruby_and_postgres
+    steps:
+      - attach_workspace:
+          at: .
+      - run: bundle exec rails db:setup
+      - ruby/rspec-test
+      # does not check coverage because of parallelism
+  static_analysis:
+    parallelism: 4
+    executor: ruby
+    steps:
+      - attach_workspace:
+          at: .
+      - ruby/rubocop-check:
+          parallel: true
+      - run: bundle exec brakeman -z
+      - run: gem install bundle-audit
+      - run: bundle-audit update
+      - run: bundle-audit
+
+workflows:
+  version: 2
+  ci_workflow:
+    jobs:
+      - build
+      - tests:
+          requires:
+            - build
+      - static_analysis:
+          requires:
+            - build
